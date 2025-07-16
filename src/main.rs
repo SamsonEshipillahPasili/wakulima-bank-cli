@@ -17,6 +17,16 @@ struct Account {
     current_balance: u32,
 }
 
+impl Account {
+    fn new(id: String, opening_balance: u32) -> Self {
+        Self {
+            id,
+            opening_balance,
+            current_balance: opening_balance,
+        }
+    }
+}
+
 struct Bank {
     accounts: HashMap<String, Account>,
 }
@@ -62,13 +72,16 @@ impl Bank {
         let Some(opening_balance) = Self::prompt("Enter the opening balance:") else {
             return;
         };
-        
-        let Ok(opening_balance) = opening_balance.parse::<u32>() else {
+
+        let Ok(opening_balance) = opening_balance.trim().parse::<u32>() else {
             eprintln!("Invalid opening balance!");
+            return;
         };
 
-        let Some(current_balance) = Self::prompt("Enter the ")
+        let account = Account::new(account_id.clone(), opening_balance);
+        self.accounts.insert(account_id, account);
 
+        println!("The account was opened successfully!");
     }
 }
 
