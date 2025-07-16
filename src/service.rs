@@ -21,8 +21,14 @@ impl Bank {
 
     pub fn list_accounts(&self) {
         println!("\n---- Accounts ----");
-        for (idx, key) in self.accounts.keys().enumerate() {
-            println!("{} {}", idx + 1, key)
+
+        for (idx, (key, value)) in self.accounts.iter().enumerate() {
+            println!(
+                "{}. Id: {}, Balance: {}",
+                idx + 1,
+                key,
+                value.current_balance
+            );
         }
     }
 
