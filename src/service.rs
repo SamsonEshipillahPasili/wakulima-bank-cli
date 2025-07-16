@@ -64,4 +64,26 @@ impl Bank {
 
         println!("The account was opened successfully!");
     }
+
+    pub fn deposit(&mut self) {
+        let Some(account_id) = Self::prompt("Enter the account id") else {
+            return;
+        };
+
+        let Some(account) = self.accounts.get_mut(&account_id) else {
+            eprintln!("No such account!");
+            return;
+        };
+
+        let Some(amount) = Self::prompt("Enter the amount to deposit") else {
+            return;
+        };
+
+        let Ok(amount) = amount.trim().parse::<u32>() else {
+            eprintln!("Invalid amount!");
+            return;
+        };
+
+        account.current_balance += amount;
+    }
 }

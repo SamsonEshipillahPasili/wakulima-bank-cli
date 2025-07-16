@@ -51,7 +51,7 @@ fn main() {
     match selection {
         models::MainMenuUserOptions::ListBankAccounts => bank.list_accounts(),
         models::MainMenuUserOptions::OpenbankAccount => bank.open_account(),
-        models::MainMenuUserOptions::Deposit => todo!(),
+        models::MainMenuUserOptions::Deposit => bank.deposit(),
         models::MainMenuUserOptions::Withdraw => todo!(),
         models::MainMenuUserOptions::Exit => todo!(),
         models::MainMenuUserOptions::InputError => todo!(),
