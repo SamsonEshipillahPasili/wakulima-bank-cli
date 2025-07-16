@@ -60,7 +60,9 @@ fn main() {
                 eprintln!("There was an error reading input.");
                 break;
             }
-            models::MainMenuUserOptions::InvalidInput => todo!(),
+            models::MainMenuUserOptions::InvalidInput => {
+                eprintln!("Invalid selection. Please try again!");
+            }
         }
     }
 }
