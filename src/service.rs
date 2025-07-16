@@ -120,4 +120,8 @@ impl Bank {
 
         println!("Withdrawal completed!");
     }
+
+    pub fn close(&self) {
+        println!("Thanks for visiting us. Bye.");
+    }
 }

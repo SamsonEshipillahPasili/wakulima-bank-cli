@@ -44,17 +44,20 @@ fn display_main_menu() -> models::MainMenuUserOptions {
 fn main() {
     let mut bank = models::Bank::init();
 
-    let selection = display_main_menu();
+    loop {
+        let selection = display_main_menu();
 
-    println!("{selection:?}");
-
-    match selection {
-        models::MainMenuUserOptions::ListBankAccounts => bank.list_accounts(),
-        models::MainMenuUserOptions::OpenbankAccount => bank.open_account(),
-        models::MainMenuUserOptions::Deposit => bank.deposit(),
-        models::MainMenuUserOptions::Withdraw => bank.withdraw(),
-        models::MainMenuUserOptions::Exit => todo!(),
-        models::MainMenuUserOptions::InputError => todo!(),
-        models::MainMenuUserOptions::InvalidInput => todo!(),
+        match selection {
+            models::MainMenuUserOptions::ListBankAccounts => bank.list_accounts(),
+            models::MainMenuUserOptions::OpenbankAccount => bank.open_account(),
+            models::MainMenuUserOptions::Deposit => bank.deposit(),
+            models::MainMenuUserOptions::Withdraw => bank.withdraw(),
+            models::MainMenuUserOptions::Exit => {
+                bank.close();
+                break;
+            }
+            models::MainMenuUserOptions::InputError => todo!(),
+            models::MainMenuUserOptions::InvalidInput => todo!(),
+        }
     }
 }
