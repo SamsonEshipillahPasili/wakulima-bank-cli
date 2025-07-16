@@ -56,7 +56,10 @@ fn main() {
                 bank.close();
                 break;
             }
-            models::MainMenuUserOptions::InputError => todo!(),
+            models::MainMenuUserOptions::InputError => {
+                eprintln!("There was an error reading input.");
+                break;
+            }
             models::MainMenuUserOptions::InvalidInput => todo!(),
         }
     }
