@@ -42,7 +42,7 @@ impl Bank {
             return None;
         }
 
-        Some(buffer)
+        Some(buffer.trim().into())
     }
 
     pub fn open_account(&mut self) {
