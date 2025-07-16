@@ -85,5 +85,39 @@ impl Bank {
         };
 
         account.current_balance += amount;
+
+        println!("Deposit completed!");
+    }
+
+    pub fn withdraw(&mut self) {
+        let Some(account) = Self::prompt("Enter the account name") else {
+            return;
+        };
+
+        let Some(account) = self.accounts.get_mut(&account) else {
+            eprintln!("No such account");
+            return;
+        };
+
+        let Some(amount) = Self::prompt("Enter the amount") else {
+            return;
+        };
+
+        let Ok(amount) = amount.trim().parse::<u32>() else {
+            eprintln!("Invalid amount!");
+            return;
+        };
+
+        if amount > account.current_balance {
+            eprintln!(
+                "Amount: {} is greater than the balance: {}",
+                amount, account.current_balance
+            );
+            return;
+        }
+
+        account.current_balance -= amount;
+
+        println!("Withdrawal completed!");
     }
 }

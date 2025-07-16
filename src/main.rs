@@ -52,7 +52,7 @@ fn main() {
         models::MainMenuUserOptions::ListBankAccounts => bank.list_accounts(),
         models::MainMenuUserOptions::OpenbankAccount => bank.open_account(),
         models::MainMenuUserOptions::Deposit => bank.deposit(),
-        models::MainMenuUserOptions::Withdraw => todo!(),
+        models::MainMenuUserOptions::Withdraw => bank.withdraw(),
         models::MainMenuUserOptions::Exit => todo!(),
         models::MainMenuUserOptions::InputError => todo!(),
         models::MainMenuUserOptions::InvalidInput => todo!(),
