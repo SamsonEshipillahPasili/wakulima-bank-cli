@@ -44,7 +44,10 @@ fn display_main_menu() -> models::MainMenuUserOptions {
 }
 
 fn main() {
-    let mut bank = models::Bank::init();
+    let Some(mut bank) = models::Bank::init() else {
+        eprintln!("Failed to init bank!");
+        return;
+    };
 
     loop {
         let selection = display_main_menu();

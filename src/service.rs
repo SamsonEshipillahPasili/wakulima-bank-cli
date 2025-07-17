@@ -1,4 +1,5 @@
 use std::fs;
+use std::path::PathBuf;
 use std::{collections::HashMap, io::stdin};
 
 use crate::models::{Account, Bank};
@@ -34,10 +35,34 @@ impl Account {
 }
 
 impl Bank {
-    pub fn init() -> Self {
-        Self {
-            accounts: HashMap::new(),
+    pub fn init() -> Option<Self> {
+        let path = PathBuf::from("data.csv");
+        if !path.exists() {
+            return Some(Self {
+                accounts: HashMap::new(),
+            });
         }
+
+        let file_read_result = fs::read_to_string(path);
+        let file_content = match file_read_result {
+            Ok(content) => content,
+            Err(err) => {
+                eprintln!("Error reading file: {err:?}");
+                return None;
+            }
+        };
+
+        let mut accounts = HashMap::new();
+
+        for line in file_content.split("\n") {
+            let Some(account) = Account::from_csv(line) else {
+                continue;
+            };
+
+            accounts.insert(account.id.clone(), account);
+        }
+
+        Some(Self { accounts })
     }
 
     fn perist(&self) {
