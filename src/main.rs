@@ -13,7 +13,8 @@ fn display_main_menu() -> models::MainMenuUserOptions {
     2. Open Bank Account
     3. Deposit
     4. Withdraw
-    5. Exit
+    5. Close Bank Account
+    6. Exit
 
     Please your selection:
     "#;
@@ -36,7 +37,8 @@ fn display_main_menu() -> models::MainMenuUserOptions {
         2 => models::MainMenuUserOptions::OpenbankAccount,
         3 => models::MainMenuUserOptions::Deposit,
         4 => models::MainMenuUserOptions::Withdraw,
-        5 => models::MainMenuUserOptions::Exit,
+        5 => models::MainMenuUserOptions::CloseAccount,
+        6 => models::MainMenuUserOptions::Exit,
         _ => models::MainMenuUserOptions::InvalidInput,
     }
 }
@@ -52,6 +54,7 @@ fn main() {
             models::MainMenuUserOptions::OpenbankAccount => bank.open_account(),
             models::MainMenuUserOptions::Deposit => bank.deposit(),
             models::MainMenuUserOptions::Withdraw => bank.withdraw(),
+            models::MainMenuUserOptions::CloseAccount => bank.close_account(),
             models::MainMenuUserOptions::Exit => {
                 bank.close();
                 break;

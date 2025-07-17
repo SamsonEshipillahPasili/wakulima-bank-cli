@@ -127,6 +127,19 @@ impl Bank {
         println!("Withdrawal completed!");
     }
 
+    pub fn close_account(&mut self) {
+        let Some(account_id) = Self::prompt("Enter account id") else {
+            return;
+        };
+
+        let Some(account) = self.accounts.remove(&account_id) else {
+            eprintln!("No such account!");
+            return;
+        };
+
+        println!("Account was removed successfully: {}!", account.id);
+    }
+
     pub fn close(&self) {
         println!("Thanks for visiting us. Bye.");
     }

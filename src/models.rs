@@ -6,6 +6,7 @@ pub enum MainMenuUserOptions {
     OpenbankAccount,
     Deposit,
     Withdraw,
+    CloseAccount,
     Exit,
     InputError,
     InvalidInput,
