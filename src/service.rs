@@ -10,6 +10,26 @@ impl Account {
             current_balance: opening_balance,
         }
     }
+
+    fn to_csv(&self) -> String {
+        format!(
+            "{},{},{}",
+            self.id, self.opening_balance, self.current_balance
+        )
+    }
+
+    fn from_csv(csv: &str) -> Option<Self> {
+        let mut csv_values_iter = csv.split(",");
+        let id = csv_values_iter.next()?;
+        let opening_balance = csv_values_iter.next()?.parse::<u32>().ok()?;
+        let current_balance = csv_values_iter.next()?.parse::<u32>().ok()?;
+
+        Some(Self {
+            id: id.into(),
+            opening_balance,
+            current_balance,
+        })
+    }
 }
 
 impl Bank {
