@@ -1,3 +1,4 @@
+use std::fs;
 use std::{collections::HashMap, io::stdin};
 
 use crate::models::{Account, Bank};
@@ -36,6 +37,18 @@ impl Bank {
     pub fn init() -> Self {
         Self {
             accounts: HashMap::new(),
+        }
+    }
+
+    fn perist(&self) {
+        let mut data = String::new();
+        for value in self.accounts.values() {
+            let line = format!("{}\n", value.to_csv());
+            data.push_str(&line);
+        }
+
+        if let Err(e) = fs::write("data.csv", data) {
+            eprintln!("There was an error: {e:?}");
         }
     }
 
@@ -88,6 +101,8 @@ impl Bank {
         let account = Account::new(account_id.clone(), opening_balance);
         self.accounts.insert(account_id, account);
 
+        self.perist();
+
         println!("The account was opened successfully!");
     }
 
@@ -111,6 +126,8 @@ impl Bank {
         };
 
         account.current_balance += amount;
+
+        self.perist();
 
         println!("Deposit completed!");
     }
@@ -144,6 +161,8 @@ impl Bank {
 
         account.current_balance -= amount;
 
+        self.perist();
+
         println!("Withdrawal completed!");
     }
 
@@ -156,6 +175,8 @@ impl Bank {
             eprintln!("No such account!");
             return;
         };
+
+        self.perist();
 
         println!("Account was removed successfully: {}!", account.id);
     }
